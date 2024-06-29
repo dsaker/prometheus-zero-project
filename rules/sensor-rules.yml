@@ -5,18 +5,18 @@ groups:
     rules:
 
       - alert: InsideTemp
-        expr: 60 < iot_air_humidity_percent{location="inside"} > 80
+        expr: 60 < iot_air_temperature_fahrenheit{location="inside"} > 80
         for: 2m
         annotations:
           summary: "Temp Warning for inside sensor"
-          description: "Sensor {{ $labels.job }} has reached {{ $value }}%"
+          description: "Sensor {{ $labels.job }} has reached {{ $value }}"
 
       - alert: OutsideTemp
-        expr: 40 < iot_air_humidity_percent{location="outside"} > 100
+        expr: 40 < iot_air_temperature_fahrenheit{location="outside"} > 100
         for: 2m
         annotations:
           summary: "Temp Warning for outside sensor"
-          description: "Sensor {{ $labels.job }} has reached {{ $value }}%"
+          description: "Sensor {{ $labels.job }} has reached {{ $value }}"
 
       - alert: InsideHumidity
         expr: 40 < iot_air_humidity_percent{location="inside"} > 70

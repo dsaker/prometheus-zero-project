@@ -1,0 +1,42 @@
+global:
+  smtp_from: 'example@gmail.com'
+  smtp_smarthost: smtp.gmail.com:587
+  smtp_auth_username: 'example@gmail.com'
+  smtp_auth_identity: 'example@gmail.com'
+  smtp_auth_password: '<password>'
+
+route:
+  group_by: [Alertname]
+  # Send all notifications to me.
+  receiver: notify-me
+
+receivers:
+  - name: notify-me
+    email_configs:
+      # this will send both an email and a text
+      - to: '<receiver_email>@gmail.com, <receiver_number>@<SMS_or_MMS_format>'
+
+
+#  Provider	        Email-to-SMS Address Format
+#  AT&T              number@txt.att.net (SMS)
+#                    number@mms.att.net (MMS)
+#
+#  Boost Mobile      number@smsmyboostmobile.com (SMS)
+#                    number@myboostmobile.com (MMS)
+#
+#  Cricket           number@sms.cricketwireless.net (SMS)
+#                    number@mms.cricketwireless.net (MMS)
+#
+#  Sprint            number@messaging.sprintpcs.com (SMS)
+#                    number@pm.sprint.com (MMS)
+#
+#  T-Mobile	        number@tmomail.net (SMS and MMS)
+#
+#  U.S. Cellular     number@email.uscc.net (SMS)
+#                    number@mms.uscc.net( MMS)
+#
+#  Verizon           number@vtext.com (SMS)
+#                    number@vzwpix.com (MMS)
+#
+#  Virgin Mobile     number@vmobl.com (SMS)
+#                    number@vmpix.com (MMS)

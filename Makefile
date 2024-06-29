@@ -40,11 +40,11 @@ copyfiles:
 ## install: install prometheus, node_exporter, alert_manager, and grafana
 install:
 	ssh ${username}@${raspberrypi_hostname} '\
-    		sudo dphys-swapfile swapoff \
-            sudo sed -i -e 's/CONF_SWAPSIZE=100/CONF_SWAPSIZE=1024/g' /etc/dphys-swapfile \
-            sudo dphys-swapfile setup \
-            sudo dphys-swapfile swapon \
-            sudo reboot'
+			chmod -R +x scripts/ \
+			cd scripts \
+    		./swapsize.sh \
+    		./install.sh \
+    		./services.sh'
 
 # ==================================================================================== #
 # MAINTENANCE
@@ -57,33 +57,24 @@ connect:
 ## prom/config: update prometheus.yml and restart prometheus
 prom/config:
 	rsync -rP --delete ./configs/prometheus.yml ${username}@${raspberrypi_hostname}:~
-
 	ssh ${username}@${raspberrypi_hostname} '\
 		sudo mv prometheus.yml  /etc/prometheus/prometheus.yml'
-
 	curl -X POST http://${raspberrypi_hostname}:9090/-/reload
 
 ## prom/rules: update prometheus rules and restart prometheus
 prom/rules:
 	rsync -rP rules/ ${username}@${raspberrypi_hostname}:~/rules/
-
 	ssh ${username}@${raspberrypi_hostname} '\
 		sudo cp -TR ~/rules/  /etc/prometheus/rules/'
-#
-#	curl -X POST http://54.224.15.173:9090/-/reload
-#	ssh ${username}@${raspberrypi_hostname} '\
-#		sudo mv prometheus.yml  /etc/prometheus/prometheus.yml'
-#
-#	curl -X POST http://${raspberrypi_hostname}:9090/-/reload
+	curl -X POST http://${raspberrypi_hostname}:9090/-/reload
 
 ## alert/config: update alertmanager.yml and restart alertmanager
 alert/config:
 	rsync -rP --delete ./configs/alertmanager.yml ${username}@${raspberrypi_hostname}:~
-
 	ssh ${username}@${raspberrypi_hostname} '\
-		sudo mv alertmanager  /etc/alertmanager/alertmanager'
+		sudo mv alertmanager.yml  /etc/alertmanager/alertmanager.yml'
 
-	curl -X POST http://${raspberrypi_hostname}:9090/-/reload
+	curl -X POST http://${raspberrypi_hostname}:9093/-/reload
 
 
 
