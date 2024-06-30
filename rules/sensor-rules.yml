@@ -12,7 +12,7 @@ groups:
           description: "Sensor {{ $labels.job }} has reached {{ $value }}"
 
       - alert: OutsideTemp
-        expr: 40 < iot_air_temperature_fahrenheit{location="outside"} > 100
+        expr: 40 < iot_air_temperature_fahrenheit{location="outside"} > 110
         for: 2m
         annotations:
           summary: "Temp Warning for outside sensor"
@@ -22,11 +22,11 @@ groups:
         expr: 40 < iot_air_humidity_percent{location="inside"} > 70
         for: 2m
         annotations:
-          summary: "Humidity Warning for bedroom sensor"
+          summary: "Humidity Warning for inside sensor"
           description: "Sensor {{ $labels.job }} has reached {{ $value }}%"
 
       - alert: OutsideHumidity
-        expr: 30 < iot_air_humidity_percent{location="outside"} > 95
+        expr: 30 < iot_air_humidity_percent{location="outside"} > 85
         for: 2m
         annotations:
           summary: "Humidity Warning for outside sensor"

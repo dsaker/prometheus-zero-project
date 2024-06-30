@@ -1,8 +1,3 @@
-# Include variables from the .envrc file
-ifneq (,$(wildcard ./.envrc))
-    include .envrc
-endif
-
 # ==================================================================================== #
 # VARIABLES
 # ==================================================================================== #
@@ -37,15 +32,6 @@ swapsize:
 copyfiles:
 	rsync -rP . ${username}@${raspberrypi_hostname}:~
 
-## install: install prometheus, node_exporter, alert_manager, and grafana
-install:
-	ssh ${username}@${raspberrypi_hostname} '\
-			chmod -R +x scripts/ \
-			cd scripts \
-    		./swapsize.sh \
-    		./install.sh \
-    		./services.sh'
-
 # ==================================================================================== #
 # MAINTENANCE
 # ==================================================================================== #
@@ -73,8 +59,4 @@ alert/config:
 	rsync -rP --delete ./configs/alertmanager.yml ${username}@${raspberrypi_hostname}:~
 	ssh ${username}@${raspberrypi_hostname} '\
 		sudo mv alertmanager.yml  /etc/alertmanager/alertmanager.yml'
-
 	curl -X POST http://${raspberrypi_hostname}:9093/-/reload
-
-
-
