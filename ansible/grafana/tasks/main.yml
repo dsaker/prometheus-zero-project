@@ -1,0 +1,43 @@
+---
+# tasks file for grafana
+- name: Add grafana gpg key
+  shell: wget -q -O - https://apt.grafana.com/gpg.key | gpg --dearmor | sudo tee /etc/apt/keyrings/grafana.gpg > /dev/null
+
+- name: Add grafana to sources list
+  shell: echo "deb [signed-by=/etc/apt/keyrings/grafana.gpg] https://apt.grafana.com stable main" | sudo tee /etc/apt/sources.list.d/grafana.list
+
+- name: Install grafana
+  ansible.builtin.apt:
+    name: grafana
+    state: present
+    update_cache: yes
+
+- name: Create dashboard directory
+  file:
+    path: '{{ grafana_dashboards_lib }}/general'
+    state: directory
+    owner: "{{ grafana_user }}"
+    group: "{{ grafana_user }}"
+
+- name: Copy datasources and dashboards to provisioning dir
+  copy:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: "{{ grafana_user }}"
+    group: "{{ grafana_user }}"
+    mode: "664"
+  with_items:
+    - { src: files/dashboards.yml, dest: '{{ grafana_dashboard_dir }}' }
+    - { src: files/datasources.yml, dest: '{{ grafana_datasources_dir }}'}
+    - { src: files/alertmanager-dashboard.json, dest: '{{ grafana_dashboards_lib }}/general' }
+    - { src: files/node-exporter-full.json, dest: '{{ grafana_dashboards_lib }}/general' }
+    - { src: files/sensors-example.json, dest: '{{ grafana_dashboards_lib }}/general' }
+
+- name: Enable and start grafana service
+  service:
+    name: grafana-server
+    enabled: yes
+    state: started
+#  environment:
+#    GF_SECURITY_ADMIN_USER: "{{ admin_user }}"
+#    GF_SECURITY_ADMIN_PASSWORD: "{{ admin_password }}"

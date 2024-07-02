@@ -1,0 +1,9 @@
+---
+# vars file for grafana
+admin_user: admin
+admin_password: password
+grafana_user: grafana
+grafana_dashboards_lib: /var/lib/grafana/dashboards
+grafana_dashboard_dir: /etc/grafana/provisioning/dashboards
+grafana_datasources_dir: /etc/grafana/provisioning/datasources
+

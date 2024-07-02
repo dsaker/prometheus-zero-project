@@ -1,0 +1,17 @@
+global:
+  smtp_from: {{ smtp_email }}
+  smtp_smarthost: smtp.gmail.com:587
+  smtp_auth_username: {{ smtp_email }}
+  smtp_auth_identity: {{ smtp_email }}
+  smtp_auth_password: {{ smtp_password }}
+
+route:
+  group_by: [alertname]
+  # Send all notifications to me.
+  receiver: notify-me
+
+receivers:
+  - name: notify-me
+    email_configs:
+      # this will send both an email and a text
+      - to: '{{ alert_receiver_email }}, {{ alert_text_email }}'

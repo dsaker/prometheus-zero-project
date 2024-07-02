@@ -1,0 +1,9 @@
+---
+# vars file for node-exporter
+node_exporter_version: 1.8.1
+node_exporter_user: node_exporter
+service_dest_dir: /lib/systemd/system/
+node_exporter_dest_dir: /etc/node_exporter
+node_exporter_download_dir: /tmp/node_exporter-{{ node_exporter_version }}.linux-armv7
+node_exporter_download_url: https://github.com/prometheus/node_exporter/releases/download/v{{ node_exporter_version }}/node_exporter-{{ node_exporter_version }}.linux-armv7.tar.gz
+

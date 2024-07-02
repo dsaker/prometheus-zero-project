@@ -1,0 +1,64 @@
+---
+# tasks file for prometheus
+- name: Create user for prometheus
+  user:
+    name: "{{ prometheus_user }}"  # Username
+    state: present  # Ensure the user is present
+    createhome: no  # Create the user's home directory
+    shell: /usr/sbin/nologin
+    append: yes
+  become: true
+
+- name: Create installation directories
+  file:
+    path: "{{item.path}}"
+    state: directory
+    owner: "{{ prometheus_user }}"
+    group: "{{ prometheus_user }}"
+  with_items:
+    - { path: '{{ prometheus_dest_dir }}' }
+    - { path: '{{ prometheus_data_dir }}' }
+    - { path: '{{ prometheus_dest_dir }}/rules' }
+
+- name: Download/unarchive Packages for prometheus
+  unarchive:
+    src: "{{ prometheus_download_url }}"
+    dest: /tmp
+    owner: "{{ prometheus_user }}"
+    group: "{{ prometheus_user }}"
+    remote_src: True
+    creates: "{{ prometheus_download_dir }}"
+
+- name: Copy all of the needed prometheus files to their dest
+  copy:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: "{{ prometheus_user }}"
+    group: "{{ prometheus_user }}"
+    remote_src: "{{ item.remote_src }}"
+    mode: "{{ item.mode }}"
+  with_items:
+    - { src: '{{ prometheus_download_dir }}/prometheus', dest: '/usr/local/bin/', mode: '0774', remote_src: True }
+    - { src: '{{ prometheus_download_dir }}/promtool', dest: '/usr/local/bin/', mode: '0774', remote_src: True }
+    - { src: '{{ prometheus_download_dir }}/consoles', dest: '{{ prometheus_dest_dir }}', mode: '0664', remote_src: True }
+    - { src: '{{ prometheus_download_dir }}/console_libraries', dest: '{{ prometheus_dest_dir }}', mode: '0664', remote_src: True }
+    - { src: 'files/node-rules.yml', dest: '{{ prometheus_dest_dir }}/rules', mode: '0664', remote_src: False }
+    - { src: 'files/sensor-rules.yml', dest: '{{ prometheus_dest_dir }}/rules', mode: '0664', remote_src: False }
+
+- name: Copy template files to their dest
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: "{{ prometheus_user }}"
+    group: "{{ prometheus_user }}"
+    mode: '0664'
+  with_items:
+    - { src: templates/prometheus.yml.j2, dest: '{{ prometheus_dest_dir }}/prometheus.yml' }
+    - { src: templates/prometheus.service.j2, dest: '{{ service_dest_dir }}/prometheus.service' }
+
+- name: Removing the tar file of prometheus
+  file:
+    path: "{{ prometheus_download_dir }}"
+    state: absent
+  notify:
+    - restart prometheus

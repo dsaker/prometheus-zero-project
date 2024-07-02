@@ -1,0 +1,14 @@
+---
+# handlers file for prometheus
+- name: restart prometheus
+  service:
+    name: prometheus
+    state: restarted
+    daemon_reload: yes
+    enabled: yes
+
+- name: reload_prometheus
+  uri:
+    url: http://raspberrypi.local:9090/-/reload
+    method: POST
+    status_code: 200

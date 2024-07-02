@@ -1,0 +1,2 @@
+[main-raspberry]
+raspberrypi.local ansible_user=dsaker
