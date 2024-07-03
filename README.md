@@ -26,7 +26,24 @@
     - GENERAL: Set username and password > Set hostname > Configure wireless LAN > Set locale
     - SERVICES: Enable SSH (if you are doing this a second time you either have to change the hostname in GENERAL or delete rapsberrypi.local from ~/.ssh/known_hosts)
 
-## Install and Configure Software
+## Setup Using Ansible
+
+- If using Raspberry Pi Zero 2W change swapsize
+  - Run `make connect` from repository root folder
+    - Once connected run:
+    ```
+      sudo dphys-swapfile swapoff 
+      sudo sed -i -e 's/CONF_SWAPSIZE=100/CONF_SWAPSIZE=1024/g' /etc/dphys-swapfile
+      sudo dphys-swapfile setup
+      sudo dphys-swapfile swapon
+      sudo reboot
+    ```
+- install ansible (https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html)
+- `cd ansible`
+- change sensor names and ansible_user in inventory.txt file to desired values
+- run `ansible-playbook -i inventory.txt playbook.yml`
+  
+## Install and Configure Software Using SSH
 
 - Set variables ['raspberrypi_hostname', 'username'] in Makefile
 - Run `cp configs/alertmanager.yml.bak configs/alertmanager.yml`
