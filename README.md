@@ -23,7 +23,7 @@
 - Install Raspberry Pi OS with Raspberry Pi Imager
   - Choose Raspberry Pi OS (other) > Raspberry Pi OS Lite (64 bit) with no desktop environment
   - EDIT SETTINGS
-    - GENERAL: Set username and password > Set hostname > Configure wireless LAN > Set locale
+    - GENERAL: Set username and password > Enable hostname (raspberrypi.local) > Configure wireless LAN > Set locale
     - SERVICES: Enable SSH (if you are doing this a second time you either have to change the hostname in GENERAL or delete rapsberrypi.local from ~/.ssh/known_hosts)
 
 ## Setup Using Ansible
@@ -42,6 +42,7 @@
 - `cd ansible`
 - change sensor names and ansible_user in inventory.txt file to desired values
 - run `ansible-playbook -i inventory.txt playbook.yml`
+- update rules/sensor-rules.yml and run `make prom/rules` from repository root directory
   
 ## Install and Configure Software Using SSH
 
@@ -85,7 +86,7 @@
 ## Updating configs/rules
 
 - to make changes to prometheus.yml you can make changes locally and run `make prom/config`
-- the same is true for alertmanager.yml (`make alert/config`) and rules `make prom/rules`
+- the same is true for configs/alertmanager.yml (`make alert/config`) and rules/* `make prom/rules`
 - update the rules to desired values and run make command to update
 - run `make help` to list all available make commands
 
