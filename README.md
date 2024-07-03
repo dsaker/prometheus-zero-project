@@ -41,6 +41,8 @@
 - install ansible (https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html)
 - `cd ansible`
 - change sensor names and ansible_user in inventory.txt file to desired values
+- `cp alertmanager/vars/main.yml.bak alertmanager/vars/main.yml`
+- create gmail account to send alerts as explained in next section and define smtp_* vars in alertmanager/vars/main.yml file
 - run `ansible-playbook -i inventory.txt playbook.yml`
 - update rules/sensor-rules.yml and run `make prom/rules` from repository root directory
   

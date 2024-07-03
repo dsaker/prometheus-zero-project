@@ -3,7 +3,7 @@
 alertmanager_version: 0.27.0
 smtp_email: <smtp_email>
 smtp_password: <smtp_password>
-alert_receiver_email: <alert_receiver_email>
+alert_receiver_email: <smtp_alert_receiver_email>
 alert_text_email: <receiver_number>@<SMS_or_MMS_format> # construct from Provider list below
 alertmanager_user: alertmanager
 alertmanager_dest_dir: /etc/alertmanager
