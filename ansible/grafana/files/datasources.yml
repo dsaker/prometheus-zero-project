@@ -1,0 +1,13 @@
+# Configuration file version
+apiVersion: 1
+
+# List of data sources to insert/update depending on what's
+# available in the database.
+datasources:
+    # first datasource is default
+  - name: Prometheus
+    type: prometheus
+    url: http://localhost:9090
+  - name: Alertmanager
+    type: alertmanager
+    url: http://localhost:9093

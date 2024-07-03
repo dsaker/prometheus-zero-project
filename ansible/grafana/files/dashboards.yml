@@ -1,0 +1,13 @@
+# # config file version
+apiVersion: 1
+providers:
+  - name: general
+    # leave empty for general folder
+    folder: ''
+    type: file
+    disableDeletion: false
+    editable: true
+    allowUiUpdates: true
+    options:
+      path: /var/lib/grafana/dashboards
+

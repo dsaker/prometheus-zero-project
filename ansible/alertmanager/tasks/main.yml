@@ -1,0 +1,57 @@
+---
+# tasks file for alertmanager
+- name: Create user for alertmanager
+  user:
+    name: "{{ alertmanager_user }}"  # Username
+    state: present  # Ensure the user is present
+    createhome: no  # Create the user's home directory
+    shell: /usr/sbin/nologin
+    append: yes
+  become: true
+
+- name: Create installation folders in etc
+  file:
+    path: "{{ item.path }}"
+    state: directory
+    owner: "{{ alertmanager_user }}"
+    group: "{{ alertmanager_user }}"
+  with_items:
+    - { path: "{{  alertmanager_dest_dir }}" }
+    - { path: "{{  alertmanager_data_dir }}" }
+
+- name: Download/unarchive packages for alertmanager
+  unarchive:
+    src: "{{ alertmanager_download_url }}"
+    dest: /tmp
+    owner: "{{ alertmanager_user }}"
+    group: "{{ alertmanager_user }}"
+    remote_src: True
+    creates: "{{ alertmanager_download_dir }}"
+
+- name: Copying the service binaries for alertmanager
+  copy:
+    src: "{{ alertmanager_download_dir }}/{{item}}"
+    dest: /usr/local/bin/
+    owner: "{{ alertmanager_user }}"
+    group: "{{ alertmanager_user }}"
+    mode: '0775'
+    remote_src: True
+  with_items:
+    ['alertmanager', 'amtool']
+
+- name: Removing the tar file of alertmanager
+  file:
+    path: "{{ alertmanager_download_dir }}"
+    state: absent
+
+- name: Copying the service and config templates
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: "{{ alertmanager_user }}"
+    group: "{{ alertmanager_user }}"
+  with_items:
+    - { src: templates/alertmanager.yml.j2, dest: "{{ alertmanager_dest_dir }}/alertmanager.yml" }
+    - { src: templates/alertmanager.service.j2, dest: "{{ service_dest_dir }}/alertmanager.service" }
+  notify:
+    - restart alertmanager

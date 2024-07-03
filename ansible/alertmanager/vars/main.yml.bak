@@ -1,0 +1,37 @@
+---
+# vars file for alertmanager
+alertmanager_version: 0.27.0
+smtp_email: <smtp_email>
+smtp_password: <smtp_password>
+alert_receiver_email: <alert_receiver_email>
+alert_text_email: <receiver_number>@<SMS_or_MMS_format> # construct from Provider list below
+alertmanager_user: alertmanager
+alertmanager_dest_dir: /etc/alertmanager
+alertmanager_data_dir: /var/lib/alertmanager
+service_dest_dir: /lib/systemd/system/
+alertmanager_download_dir: /tmp/alertmanager-{{ alertmanager_version }}.linux-armv7
+alertmanager_download_url: https://github.com/prometheus/alertmanager/releases/download/v{{ alertmanager_version }}/alertmanager-{{ alertmanager_version }}.linux-armv7.tar.gz
+
+#  Provider	        Email-to-SMS Address Format
+#  AT&T              number@txt.att.net (SMS)
+#                    number@mms.att.net (MMS)
+#
+#  Boost Mobile      number@smsmyboostmobile.com (SMS)
+#                    number@myboostmobile.com (MMS)
+#
+#  Cricket           number@sms.cricketwireless.net (SMS)
+#                    number@mms.cricketwireless.net (MMS)
+#
+#  Sprint            number@messaging.sprintpcs.com (SMS)
+#                    number@pm.sprint.com (MMS)
+#
+#  T-Mobile	        number@tmomail.net (SMS and MMS)
+#
+#  U.S. Cellular     number@email.uscc.net (SMS)
+#                    number@mms.uscc.net( MMS)
+#
+#  Verizon           number@vtext.com (SMS)
+#                    number@vzwpix.com (MMS)
+#
+#  Virgin Mobile     number@vmobl.com (SMS)
+#                    number@vmpix.com (MMS)
