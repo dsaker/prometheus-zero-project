@@ -1,4 +1,19 @@
 {
+  "__inputs": [],
+  "__requires": [
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "6.1.0"
+    },
+    {
+      "type": "datasource",
+      "id": "prometheus",
+      "name": "Prometheus",
+      "version": "1.0.0"
+    }
+  ],
   "annotations": {
     "list": [
       {
@@ -97,7 +112,7 @@
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": false,
-          "legendFormat": "{{job}}",
+          "legendFormat": "{% raw %}{{ job }}{% endraw %}",
           "range": true,
           "refId": "A",
           "useBackend": false
@@ -168,7 +183,7 @@
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": false,
-          "legendFormat": "{{job}}",
+          "legendFormat": "{% raw %}{{ job }}{% endraw %}",
           "range": true,
           "refId": "A",
           "useBackend": false
@@ -185,7 +200,7 @@
         "y": 9
       },
       "id": 10,
-      "title": "Bedroom",
+      "title": "{{sensor1}}",
       "type": "row"
     },
     {
@@ -274,17 +289,17 @@
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "iot_air_heat_index_fahrenheit{job=\"sensor1\"}",
+          "expr": "iot_air_heat_index_fahrenheit{ job=\"{{sensor1}}\" }",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": false,
-          "legendFormat": "{{job}}",
+          "legendFormat": "{% raw %}{{ job }}{% endraw %}",
           "range": true,
           "refId": "A",
           "useBackend": false
         }
       ],
-      "title": "Bedroom Temperature",
+      "title": "{{sensor1}} Temperature",
       "type": "timeseries"
     },
     {
@@ -373,17 +388,17 @@
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "iot_air_humidity_percent{job=\"sensor1\"}",
+          "expr": "iot_air_humidity_percent{ job=\"{{sensor1}}\" }",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": false,
-          "legendFormat": "{{job}}",
+          "legendFormat": "{% raw %}{{ job }}{% endraw %}",
           "range": true,
           "refId": "A",
           "useBackend": false
         }
       ],
-      "title": "Bedroom Humidity",
+      "title": "{{sensor1}} Humidity",
       "type": "timeseries"
     },
     {
@@ -396,7 +411,7 @@
       },
       "id": 7,
       "panels": [],
-      "title": "Sunroom",
+      "title": "{{ sensor2 }}",
       "type": "row"
     },
     {
@@ -485,17 +500,17 @@
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "iot_air_temperature_fahrenheit{job=\"sensor2\"}",
+          "expr": "iot_air_heat_index_fahrenheit{ job=\"{{sensor2}}\" }",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": false,
-          "legendFormat": "{{job}}",
+          "legendFormat": "{% raw %}{{ job }}{% endraw %}",
           "range": true,
           "refId": "A",
           "useBackend": false
         }
       ],
-      "title": "Sunroom Temperature",
+      "title": "{{sensor2}} Temperature",
       "type": "timeseries"
     },
     {
@@ -584,17 +599,17 @@
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "iot_air_humidity_percent{job=\"sensor2\"}",
+          "expr": "iot_air_humidity_percent{ job=\"{{sensor2}}\" }",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": false,
-          "legendFormat": "{{job}}",
+          "legendFormat": "{% raw %}{{ job }}{% endraw %}",
           "range": true,
           "refId": "A",
           "useBackend": false
         }
       ],
-      "title": "Sunroom Humidity",
+      "title": "{{ sensor2 }} Humidity",
       "type": "timeseries"
     },
     {
@@ -607,7 +622,7 @@
       },
       "id": 2,
       "panels": [],
-      "title": "Basement",
+      "title": "{{sensor3}}",
       "type": "row"
     },
     {
@@ -696,17 +711,17 @@
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "iot_air_temperature_fahrenheit{job=\"sensor3\"}",
+          "expr": "iot_air_temperature_fahrenheit{ job=\"{{sensor3}}\" }",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": false,
-          "legendFormat": "{{job}}",
+          "legendFormat": "{% raw %}{{ job }}{% endraw %}",
           "range": true,
           "refId": "A",
           "useBackend": false
         }
       ],
-      "title": "Basement Temperature",
+      "title": "{{sensor3}} Temperature",
       "type": "timeseries"
     },
     {
@@ -714,7 +729,7 @@
         "type": "prometheus",
         "uid": "${datasource_var}"
       },
-      "description": "Basement humidity and temperature ",
+      "description": " {{sensor3}} humidity and temperature ",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -796,17 +811,17 @@
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "iot_air_humidity_percent{job=\"sensor3\"}",
+          "expr": "iot_air_humidity_percent{ job=\"{{sensor3}}\" }",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": false,
-          "legendFormat": "{{job}}",
+          "legendFormat": "{% raw %}{{ job }}{% endraw %}",
           "range": true,
           "refId": "A",
           "useBackend": false
         }
       ],
-      "title": "Basement Humidity",
+      "title": " {{sensor3}} Humidity",
       "type": "timeseries"
     }
   ],

@@ -20,7 +20,7 @@
     - { path: '{{ prometheus_data_dir }}' }
     - { path: '{{ prometheus_dest_dir }}/rules' }
 
-- name: Download/unarchive Packages for prometheus
+- name: Download/unarchive packages for prometheus
   unarchive:
     src: "{{ prometheus_download_url }}"
     dest: /tmp

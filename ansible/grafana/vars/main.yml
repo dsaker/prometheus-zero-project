@@ -6,4 +6,6 @@ grafana_user: grafana
 grafana_dashboards_lib: /var/lib/grafana/dashboards
 grafana_dashboard_dir: /etc/grafana/provisioning/dashboards
 grafana_datasources_dir: /etc/grafana/provisioning/datasources
-
+#sensor1: sensor1
+#sensor2: sensor2
+#sensor3: sensor3

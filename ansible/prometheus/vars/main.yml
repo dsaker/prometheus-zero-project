@@ -7,6 +7,6 @@ prometheus_data_dir: /var/lib/prometheus
 service_dest_dir: /lib/systemd/system
 prometheus_download_dir: /tmp/prometheus-{{ prometheus_version }}.linux-armv7
 prometheus_download_url: https://github.com/prometheus/prometheus/releases/download/v{{ prometheus_version }}/prometheus-{{ prometheus_version }}.linux-armv7.tar.gz
-sensor1: sunroom
-sensor2: bedroom
-sensor3: basement
+#sensor1: sensor1
+#sensor2: sensor2
+#sensor3: sensor3

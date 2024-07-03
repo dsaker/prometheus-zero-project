@@ -1,4 +1,4 @@
-- name: install prometheus
+- name: Install prometheus
   hosts: all
   become: True
   gather_facts: yes
@@ -7,7 +7,7 @@
   roles:
     - role: prometheus
 
-- name: install node-exporter
+- name: Install node-exporter
   hosts: all
   become: True
   gather_facts: yes
@@ -16,7 +16,7 @@
   roles:
     - role: node-exporter
 
-- name: install alertmanager
+- name: Install alertmanager
   hosts: all
   become: True
   gather_facts: yes
@@ -25,7 +25,7 @@
   roles:
     - role: alertmanager
 
-- name: install grafana
+- name: Install grafana
   hosts: all
   become: True
   gather_facts: yes

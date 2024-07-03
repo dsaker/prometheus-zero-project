@@ -1,2 +1,7 @@
-[main-raspberry]
+[all:vars]
+sensor1="sensor1" # 192.168.1.15
+sensor2="sensor2" # 192.168.1.16
+sensor3="sensor3" # 192.168.1.17
+
+[rpi-zero]
 raspberrypi.local ansible_user=dsaker

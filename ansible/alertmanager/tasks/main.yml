@@ -19,7 +19,7 @@
     - { path: "{{  alertmanager_dest_dir }}" }
     - { path: "{{  alertmanager_data_dir }}" }
 
-- name: Download/unarchive Packages for alertmanager
+- name: Download/unarchive packages for alertmanager
   unarchive:
     src: "{{ alertmanager_download_url }}"
     dest: /tmp

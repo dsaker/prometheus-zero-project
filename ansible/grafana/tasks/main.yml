@@ -31,13 +31,18 @@
     - { src: files/datasources.yml, dest: '{{ grafana_datasources_dir }}'}
     - { src: files/alertmanager-dashboard.json, dest: '{{ grafana_dashboards_lib }}/general' }
     - { src: files/node-exporter-full.json, dest: '{{ grafana_dashboards_lib }}/general' }
-    - { src: files/sensors-example.json, dest: '{{ grafana_dashboards_lib }}/general' }
+#    - { src: files/sensors-example.json, dest: '{{ grafana_dashboards_lib }}/general' }
+
+- name: Copy sensor dashboard template to dashboards
+  template:
+    src: templates/sensors-example.json.j2
+    dest: '{{ grafana_dashboards_lib }}/general/sensors-example.json'
+    owner: "{{ grafana_user }}"
+    group: "{{ grafana_user }}"
+    mode: '0664'
 
 - name: Enable and start grafana service
   service:
     name: grafana-server
     enabled: yes
     state: started
-#  environment:
-#    GF_SECURITY_ADMIN_USER: "{{ admin_user }}"
-#    GF_SECURITY_ADMIN_PASSWORD: "{{ admin_password }}"
