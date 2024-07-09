@@ -9,11 +9,12 @@
 - DHT sensor.
   - Tested with DHT22
 - 32GB or 64GB microSD card
+- Three micro usb chargers
 
 ## Sensor Setup
 
 - Follow directions at -> https://github.com/HON95/prometheus-esp8266-dht-exporter
-- In the src folder contained in this repository Fahrenheit temperature has been added to the exported metrics
+- In the arduino folder contained in this repository Fahrenheit temperature has been added to the exported metrics
 - Please note that WIFI_IPV4_ADDRESS is hardcoded and must be changed manually in config.h for each sensor
   - To align with prometheus.yml you would need three sensors with values ['192.168.1.15', '192.168.1.16', '192.168.1.17']
   - Please change these values in prometheus.yml if they are different
