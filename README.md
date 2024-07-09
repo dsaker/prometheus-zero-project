@@ -17,11 +17,11 @@
 - In the arduino folder contained in this repository Fahrenheit temperature has been added to the exported metrics
 - Please note that WIFI_IPV4_ADDRESS is hardcoded and must be changed manually in config.h for each sensor
   - To align with prometheus.yml you would need three sensors with values ['192.168.1.15', '192.168.1.16', '192.168.1.17']
-  - Please change these values in prometheus.yml if they are different
+  - Change these values in prometheus.yml if they are different
 
 ## Raspberry Pi Setup
 
-- Install Raspberry Pi OS with Raspberry Pi Imager
+- Install Raspberry Pi OS with [Raspberry Pi Imager](https://www.raspberrypi.com/software/)
   - Choose Raspberry Pi OS (other) > Raspberry Pi OS Lite (64 bit) with no desktop environment
   - EDIT SETTINGS
     - GENERAL: Set username and password > Enable hostname (raspberrypi.local) > Configure wireless LAN > Set locale
@@ -29,6 +29,7 @@
 
 ## Setup Using Ansible
 
+- Change raspberrypi_hostname and username to values used in Rasperry Pi Setup
 - If using Raspberry Pi Zero 2W change swapsize
   - Run `make connect` from repository root folder
     - Once connected run:
@@ -45,7 +46,7 @@
 - `cp alertmanager/vars/main.yml.bak alertmanager/vars/main.yml`
 - create gmail account to send alerts as explained in next section and define smtp_* vars in alertmanager/vars/main.yml file
 - run `ansible-playbook -i inventory.txt playbook.yml`
-- update rules/sensor-rules.yml and run `make prom/rules` from repository root directory
+- update rules/sensor-rules.yml to set alerts where you desire and run `make prom/rules` from repository root directory
   
 ## Install and Configure Software Using SSH
 
